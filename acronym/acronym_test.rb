@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require_relative 'acronym'
-require 'byebug'
 
 class AcronymTest < Minitest::Test
   def test_basic
