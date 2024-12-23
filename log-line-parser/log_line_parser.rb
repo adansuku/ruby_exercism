@@ -1,17 +1,29 @@
+# frozen_string_literal: true
+
+#
+# LogLineParser class
 class LogLineParser
   def initialize(line)
     @line = line
   end
 
+  attr_reader :line
+
   def message
-    raise 'Please implement the LogLineParser#message method'
+    split_message[1].strip
   end
 
   def log_level
-    raise 'Please implement the LogLineParser#log_level method'
+    split_message[0].gsub(/[^a-zA-Z]/, '').downcase.strip
   end
 
   def reformat
-    raise 'Please implement the LogLineParser#reformat method'
+    message + " (#{log_level})"
+  end
+
+  private
+
+  def split_message
+    line.split(':')
   end
 end

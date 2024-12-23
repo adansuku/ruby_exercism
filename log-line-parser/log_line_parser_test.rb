@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
 require_relative 'log_line_parser'
 
+# LogLineParserTest class tests the LogLineParser class
 class LogLineParserTest < Minitest::Test
   def test_error_message
     assert_equal 'Stack overflow', LogLineParser.new('[ERROR]: Stack overflow').message
