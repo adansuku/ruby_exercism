@@ -1,19 +1,13 @@
-require 'byebug'
 module Blackjack
+  CARD_VALUES = {
+    "ace" => 11, "two" => 2, "three" => 3, "four" => 4, "five" => 5,
+    "six" => 6, "seven" => 7, "eight" => 8, "nine" => 9,
+    "ten" => 10, "jack" => 10, "queen" => 10, "king" => 10,
+    "joker" => 0
+  }
+
   def self.parse_card(card)
-    case card
-    when "ace" then 11
-    when "two" then 2
-    when "three" then 3
-    when "four" then 4
-    when "five" then 5
-    when "six" then 6
-    when "seven" then 7
-    when "eight" then 8
-    when "nine" then 9
-    when "ten", "jack", "queen", "king" then 10
-    when "joker" then 0
-    end
+    CARD_VALUES[card] || 0
   end
 
   def self.card_range(card1, card2)
@@ -28,21 +22,19 @@ module Blackjack
   end
 
   def self.first_turn(card1, card2, dealer_card)
-    cards_sum = parse_card(card1) + parse_card(card2)
-
     case
-    when card1 && card2 == "ace" then "P"
-    when cards_sum == 21 && (dealer_card != "ace") then "W"
-    when cards_sum < 11 then "H"
-    when ["ace", "king", "queen", "jack", 11].include?(dealer_card) then "S"
-    when (12..16).include?(cards_sum) && parse_card(dealer_card) >= 7 then "H"
-    when (12..16).include?(cards_sum) && parse_card(dealer_card) < 7 then "S"
-    when (17..20).include?(cards_sum) then "S"
+    when card1 == "ace" && card2 == "ace"
+      "P"
+    when card_range(card1, card2) == "blackjack" && parse_card(dealer_card) < 10
+      "W"
+    when card_range(card1, card2) == "high"
+      "S"
+    when card_range(card1, card2) == "mid" && parse_card(dealer_card) >= 7
+      "H"
+    when card_range(card1, card2) == "low"
+      "H"
+    else
+      "S"
     end
-
-  end
-
-  def split(card1, card2, dealer_card)
-
   end
 end
