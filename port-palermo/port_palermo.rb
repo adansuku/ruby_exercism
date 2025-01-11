@@ -2,15 +2,14 @@ module Port
   # TODO: define the 'IDENTIFIER' constant
   IDENTIFIER =:PALE
 
-  IDENTIFIERS = {
+  CITY_IDENTIFIERS = {
     "Hamburg" => :HAMB,
     "Rome" => :ROME,
     "Kiel" => :KIEL
-
   }
 
   def self.get_identifier(city)
-    IDENTIFIERS[city]
+    CITY_IDENTIFIERS[city]
   end
 
   def self.get_terminal(ship_identifier)

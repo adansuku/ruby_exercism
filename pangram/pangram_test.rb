@@ -3,7 +3,7 @@ require_relative 'pangram'
 
 class PangramTest < Minitest::Test
   def test_empty_sentence
-    # skip
+    #
     sentence = ""
     result = Pangram.pangram?(sentence)
     refute result, "Expected false, got: #{result.inspect}. #{sentence.inspect} is NOT a pangram"

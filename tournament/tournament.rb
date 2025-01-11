@@ -3,7 +3,13 @@
 # Handles tournament results and formatting
 class Tournament
   HEADER_TEMPLATE = '%<team>-31s| %<mp>2s | %<wins>2s | %<draws>2s | %<losses>2s | %<points>2s'
-  HEADER = format(HEADER_TEMPLATE, team: 'Team', mp: 'MP', wins: 'W', draws: 'D', losses: 'L', points: 'P')
+  HEADER = HEADER_TEMPLATE %{
+                              team: 'Team',
+                              mp: 'MP',
+                              wins: 'W',
+                              draws: 'D',
+                              losses: 'L',
+                              points: 'P' }
 
   ROW_TEMPLATE = '%<team>-31s| %<matches_played>2i | %<wins>2i | %<draws>2i | %<losses>2i | %<points>2i'
   DEFAULT_STATS = { matches_played: 0, wins: 0, draws: 0, losses: 0, points: 0 }.freeze
@@ -18,7 +24,7 @@ class Tournament
   end
 
   class << self
-    ACTIONS = {
+    ACTION = {
       win: :handle_win,
       loss: :handle_loss,
       draw: :handle_draw
@@ -44,7 +50,7 @@ class Tournament
 
     # Updates the statistics of the teams based on the match result
     def update_results(results, team1, team2, result)
-      send(ACTIONS[result.to_sym], results, team1, team2)
+      send(ACTION[result.to_sym], results, team1, team2)
     end
 
     # Handle the "win" case

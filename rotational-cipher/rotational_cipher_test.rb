@@ -3,7 +3,7 @@ require_relative 'rotational_cipher'
 
 class RotationalCipherTest < Minitest::Test
   def test_rotate_a_by_0_same_output_as_input
-    # skip
+    skip
     assert_equal "a", RotationalCipher.rotate("a", 0)
   end
 
@@ -33,7 +33,7 @@ class RotationalCipherTest < Minitest::Test
   end
 
   def test_rotate_spaces
-    skip
+    # skip
     assert_equal "T R L", RotationalCipher.rotate("O M G", 5)
   end
 

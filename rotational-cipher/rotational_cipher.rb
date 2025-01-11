@@ -1,7 +1,23 @@
-=begin
-Write your code for the 'Rotational Cipher' exercise in this file. Make the tests in
-`rotational_cipher_test.rb` pass.
+class RotationalCipher
+  ALPHABET = "abcdefghijklmnopqrstuvwxyz".chars
 
-To get started with TDD, see the `README.md` file in your
-`ruby/rotational-cipher` directory.
-=end
+  def self.rotate(input, key)
+    input.chars.map do |char|
+      rotate_character(char, key)
+    end.join
+  end
+
+  private
+
+  def self.rotate_character(char, key)
+    index = ALPHABET.index(char.downcase)
+    return char unless index
+
+    rotated_char = ALPHABET[(index + key) % ALPHABET.size]
+    is_upcase(char) ? rotated_char.upcase : rotated_char
+  end
+
+  def self.is_upcase(char)
+    char.upcase == char
+  end
+end
